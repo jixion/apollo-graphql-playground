@@ -192,6 +192,6 @@ const server = new ApolloServer({
   }) });
 
 // Launch the server
-server.listen().then(({ url }) => {
+server.listen(80).then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
