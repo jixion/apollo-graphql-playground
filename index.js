@@ -74,6 +74,7 @@ const typeDefs = gql`
     id: String!
     name: String!
     is_potentially_hazardous_asteroid: Boolean!
+    diameter: Float!
   }
 
   # Queries can fetch a list of libraries
