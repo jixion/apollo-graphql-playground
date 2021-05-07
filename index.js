@@ -70,11 +70,19 @@ const typeDefs = gql`
     near_earth_objects: [NEO_BODY]
   }
   
+  type MILES {
+    estimated_diameter_max: Float!
+  }
+  
+  type DIAMETER {
+    miles: MILES
+  }
+  
   type NEO_BODY {
     id: String!
     name: String!
     is_potentially_hazardous_asteroid: Boolean!
-    diameter: Float!
+    estimated_diameter: DIAMETER
   }
 
   # Queries can fetch a list of libraries
