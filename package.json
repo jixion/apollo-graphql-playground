@@ -4,9 +4,9 @@
   "description": "asdf",
   "author": "",
   "license": "ISC",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.13.0",
