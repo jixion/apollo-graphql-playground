@@ -13,7 +13,10 @@ const resolvers = {
             return dataSources.nasaAPI.getNEOs().then(data => {
                 return data["near_earth_objects"][new Date().toISOString().substr(0,10)];
             })
-        }
+        },
+        async cards(_, __, { dataSources }) {
+            return dataSources.cotdbAPI.getCards();
+        },
     },
 };
 

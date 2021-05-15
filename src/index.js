@@ -2,7 +2,7 @@ const { ApolloServer } = require('apollo-server');
 
 const { typeDefs } = require('./typedefs');
 const { resolvers } = require('./resolvers');
-const { NASAAPI, ISSAPI } = require('./datasources');
+const { NASAAPI, ISSAPI, COTDBAPI } = require('./datasources');
 
 // Pass schema definition and resolvers to the
 // ApolloServer constructor
@@ -11,7 +11,8 @@ const server = new ApolloServer({
     resolvers,
     dataSources: () => ({
         issAPI: new ISSAPI(),
-        nasaAPI: new NASAAPI()
+        nasaAPI: new NASAAPI(),
+        cotdbAPI: new COTDBAPI(),
     }) });
 
 // Launch the server

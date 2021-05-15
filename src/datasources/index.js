@@ -36,5 +36,21 @@ class ISSAPI extends RESTDataSource {
     }
 }
 
+
+class COTDBAPI extends RESTDataSource {
+    constructor() {
+        // Always call super()
+        super();
+        // Sets the base URL for the REST API
+        this.baseURL = 'https://cotdb.herokuapp.com/api/';
+    }
+
+    async getCards() {
+        // Send a GET request to the specified endpoint
+        return this.get(`/cards?user=jburroug`);
+    }
+}
+
 exports.NASAAPI = NASAAPI;
 exports.ISSAPI = ISSAPI;
+exports.COTDBAPI = COTDBAPI;

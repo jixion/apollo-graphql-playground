@@ -33,6 +33,15 @@ const typeDefs = gql`
     name: String!
     is_potentially_hazardous_asteroid: Boolean!
   }
+  
+  type CARD {
+    id: Int!,
+    description: String!,
+    status: String!,
+    title: String!,
+    username: String!,
+    order: Int!
+  }
 
   # Queries can fetch a list of libraries
   type Query {
@@ -40,6 +49,7 @@ const typeDefs = gql`
     locations: [Location]
     neos: [NEO_BODY]
     apod: APOD
+    cards: [CARD]
   }
 `;
 
