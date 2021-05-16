@@ -4,7 +4,7 @@ const resolvers = {
             return dataSources.issAPI.getSatellites();
         },
         async locations(_, __, { dataSources }) {
-            return dataSources.issAPI.getLocations();
+            return dataSources.issAPI.getLocations(__.limit);
         },
         async apod(_, __, { dataSources }) {
             return dataSources.nasaAPI.getApod();

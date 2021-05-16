@@ -46,7 +46,7 @@ const typeDefs = gql`
   # Queries can fetch a list of libraries
   type Query {
     satellites: [Satellite]
-    locations: [Location]
+    locations(limit: Int): [Location]
     neos: [NEO_BODY]
     apod: APOD
     cards(user: String!): [CARD]

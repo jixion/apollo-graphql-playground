@@ -31,8 +31,10 @@ class ISSAPI extends RESTDataSource {
         return this.get(`/`);
     }
 
-    async getLocations() {
-        return this.get('/25544/positions?timestamps=1436029892,1436029902&units=miles')
+    async getLocations(limit) {
+        return this.get('/25544/positions?timestamps=1436029892,1436029902&units=miles').then(data => {
+            return data.slice(0, limit);
+        })
     }
 }
 
