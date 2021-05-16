@@ -18,7 +18,7 @@ const typeDefs = gql`
   }
   
   type APOD {
-    copyright: String!
+    copyright: String
     date: String!
     explanation: String!
     hdurl: String!
@@ -40,7 +40,7 @@ const typeDefs = gql`
     status: String!,
     title: String!,
     username: String!,
-    order: Int!
+    order: Int
   }
 
   # Queries can fetch a list of libraries
@@ -49,7 +49,7 @@ const typeDefs = gql`
     locations: [Location]
     neos: [NEO_BODY]
     apod: APOD
-    cards: [CARD]
+    cards(user: String!): [CARD]
   }
 `;
 

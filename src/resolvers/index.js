@@ -14,8 +14,8 @@ const resolvers = {
                 return data["near_earth_objects"][new Date().toISOString().substr(0,10)];
             })
         },
-        async cards(_, __, { dataSources }) {
-            return dataSources.cotdbAPI.getCards();
+        async cards(_, { user }, { dataSources }) {
+            return dataSources.cotdbAPI.getCards(user);
         },
     },
 };
