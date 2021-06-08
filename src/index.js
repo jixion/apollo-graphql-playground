@@ -13,7 +13,8 @@ const server = new ApolloServer({
         issAPI: new ISSAPI(),
         nasaAPI: new NASAAPI(),
         cotdbAPI: new COTDBAPI(),
-    }) });
+    }) 
+});
 
 // Launch the server
 server.listen(process.env.PORT || 5000).then(({ url }) => {
