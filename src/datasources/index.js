@@ -47,9 +47,11 @@ class COTDBAPI extends RESTDataSource {
         this.baseURL = 'https://cotdb.herokuapp.com/api/';
     }
 
-    async getCards(user) {
+    async getCards(user, limit) {
         // Send a GET request to the specified endpoint
-        return this.get(`/cards?user=${user}`);
+        return this.get(`/cards?user=${user}`).then(data => {
+            return data.slice(0, limit);
+        });
     }
 }
 

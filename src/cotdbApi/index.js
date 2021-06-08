@@ -11,7 +11,7 @@ const cardsType = gql`
   }
 
   type Query {
-    cards(user: String!): [CARD]
+    cards(user: String!, limit: Int): [CARD]
   }
 `;
 
