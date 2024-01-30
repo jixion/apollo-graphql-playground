@@ -19,6 +19,7 @@ type Coord {
 
 type Weather {
   description: String
+  main: String
 }
 
 type WeatherMain {
