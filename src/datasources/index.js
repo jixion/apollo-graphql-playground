@@ -55,6 +55,21 @@ class COTDBAPI extends RESTDataSource {
     }
 }
 
+class OWMAPI extends RESTDataSource {
+    constructor() {
+        // Always call super()
+        super();
+        // Sets the base URL for the REST API
+        this.baseURL = `https://api.openweathermap.org/data/2.5/weather`;
+    }
+
+    async getZip() {
+        // Send a GET request to the specified endpoint
+        return this.get(`?zip=76712,us&APPID=${process.env.OWM}`);
+    }
+}
+
 exports.NASAAPI = NASAAPI;
 exports.ISSAPI = ISSAPI;
 exports.COTDBAPI = COTDBAPI;
+exports.OWMAPI = OWMAPI;

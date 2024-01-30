@@ -6,6 +6,7 @@ const { apod } = require('../apodApi');
 const { issLocations } = require('../issLocationsApi');
 const { issSatellites } = require('../issSatellitesApi');
 const { cards } = require('../cotdbApi');
+const { owm } = require('../owmApi');
 
 const resolvers = {
     Query: {
@@ -14,6 +15,7 @@ const resolvers = {
         issLocations,
         issSatellites,
         cards
+        owm
     },
 };
 

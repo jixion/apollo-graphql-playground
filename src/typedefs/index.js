@@ -6,7 +6,8 @@ const { apodType } = require('../apodApi');
 const { issLocationsType } = require('../issLocationsApi');
 const { issSatellitesType } = require('../issSatellitesApi');
 const { cardsType } = require('../cotdbApi');
+const { owmType } = require('../owmApi');
 
-const typeDefs = mergeTypeDefs([neoType, apodType, issLocationsType, issSatellitesType, cardsType]);
+const typeDefs = mergeTypeDefs([neoType, apodType, issLocationsType, issSatellitesType, cardsType, owmType]);
 
 exports.typeDefs = typeDefs;
