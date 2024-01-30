@@ -14,7 +14,7 @@ const resolvers = {
         apod,
         issLocations,
         issSatellites,
-        cards
+        cards,
         owm
     },
 };
