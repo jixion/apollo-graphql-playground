@@ -14,7 +14,8 @@ const server = new ApolloServer({
         nasaAPI: new NASAAPI(),
         cotdbAPI: new COTDBAPI(),
         owmAPI: new OWMAPI()
-    }) 
+    }),
+    playground: false
 });
 
 // Launch the server
