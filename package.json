@@ -9,7 +9,8 @@
     "node": "^12.x"
   },
   "scripts": {
-    "start": "NODE_ENV=production node src/index.js"
+    "start": "NODE_ENV=production node src/index.js",
+    "dev": "NODE_ENV=development node src/index.js"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.13.0",
