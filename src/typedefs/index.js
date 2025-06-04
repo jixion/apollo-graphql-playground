@@ -1,5 +1,5 @@
 const { gql } = require("apollo-server");
-const { mergeTypeDefs } = require('graphql-tools');
+const { mergeTypeDefs } = require('@graphql-tools/merge');
 
 const { neoType } = require('../neoApi');
 const { apodType } = require('../apodApi');

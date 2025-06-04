@@ -6,17 +6,17 @@
   "license": "ISC",
   "main": "src/index.js",
   "engines": {
-    "node": "^12.x"
+    "node": "^20.x"
   },
   "scripts": {
     "start": "NODE_ENV=production node src/index.js",
     "dev": "NODE_ENV=development node src/index.js"
   },
   "dependencies": {
-    "apollo-datasource-rest": "^0.13.0",
-    "apollo-server": "^2.24.0",
+    "@graphql-tools/merge": "^9.0.24",
+    "apollo-datasource-rest": "^3.7.0",
+    "apollo-server": "3.13.0",
     "apollo-server-core": "^3.13.0",
-    "graphql": "^15.5.0",
-    "graphql-tools": "^7.0.5"
+    "graphql": "^16.11.0"
   }
 }
