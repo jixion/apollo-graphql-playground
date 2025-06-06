@@ -43,7 +43,7 @@ async function startApolloServer(typeDefs, resolvers) {
 
     const corsOptions = {
         origin: function (origin, callback) {
-            if (origin !== undefined && (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com'))) {
+            if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com')) {
                 callback(null, true);
             } else {
                 callback(new Error('Not allowed by CORS'));
