@@ -47,7 +47,7 @@ async function startApolloServer(typeDefs, resolvers) {
             if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com')) {
                 callback(null, true);
             } else {
-                callback(new Error('Not allowed by CORS'));
+                callback(() => console.log('Not allowed by CORS'));
             }
         },
         credentials: true, // If your frontend sends cookies or authorization headers
