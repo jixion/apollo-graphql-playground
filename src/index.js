@@ -38,15 +38,16 @@ async function startApolloServer(typeDefs, resolvers) {
     await server.start();
 
     const allowedOrigins = [
-        'https://v2-dot-aqueous-cargo-415820.uc.r.appspot.com', // Your frontend App Engine URL
+        'https://v2-dot-aqueous-cargo-415820.uc.r.appspot.com',
+        'https://www.jixion.com'
     ];
 
     const corsOptions = {
         origin: function (origin, callback) {
-            if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com')) {
+            if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com') || origin.endsWith('jixion.com')) {
                 callback(null, true);
             } else {
-                callback(() => console.log('Not allowed by CORS'));
+                callback(new Error('Not allowed by CORS'));
             }
         },
         credentials: true, // If your frontend sends cookies or authorization headers
