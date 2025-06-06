@@ -16,7 +16,7 @@ function authenticateAppEngineService(req, res, next) {
     const callingServiceAccount = req.headers['x-appengine-service-account'];
     console.log(`Received request from service account: ${callingServiceAccount}`);
 
-    if (callingServiceAccount === ALLOWED_FRONTEND_SERVICE_ACCOUNT || req.header.origin.endsWith('.aqueous-cargo-415820.uc.r.appspot.com')) {
+    if (callingServiceAccount === ALLOWED_FRONTEND_SERVICE_ACCOUNT && req.header.origin.endsWith('.aqueous-cargo-415820.uc.r.appspot.com')) {
         console.log('Access granted to frontend service account.');
         next(); // Allow the request
     } else {
