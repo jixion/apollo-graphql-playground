@@ -10,6 +10,14 @@ const { typeDefs } = require('./typedefs');
 const { resolvers } = require('./resolvers');
 const { NASAAPI, ISSAPI, COTDBAPI, OWMAPI } = require('./datasources');
 
+function authenticateAppEngineService(req, res, next) {
+    if (req.header.origin.endsWith('.aqueous-cargo-415820.uc.r.appspot.com')) {
+        next(); // Allow the request
+    } else {
+        res.status(403).send('Forbidden: Access denied.');
+    }
+}
+
 async function startApolloServer(typeDefs, resolvers) {
     const app = express();
     const httpServer = http.createServer(app);
@@ -35,8 +43,7 @@ async function startApolloServer(typeDefs, resolvers) {
 
     const corsOptions = {
         origin: function (origin, callback) {
-            // Check if the origin is in our allowed list or if it's a request from the same origin (e.g., Postman, Curl, or direct access)
-            if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com')) {
+            if (origin !== undefined && (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com'))) {
                 callback(null, true);
             } else {
                 callback(new Error('Not allowed by CORS'));
@@ -49,7 +56,7 @@ async function startApolloServer(typeDefs, resolvers) {
 
     app.use(cors(corsOptions));
 
-    app.use('/', express.json(), server.getMiddleware({
+    app.use('/', authenticateAppEngineService, express.json(), server.getMiddleware({
         path: '/',
     }));
 
