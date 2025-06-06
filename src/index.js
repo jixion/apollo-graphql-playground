@@ -10,22 +10,6 @@ const { typeDefs } = require('./typedefs');
 const { resolvers } = require('./resolvers');
 const { NASAAPI, ISSAPI, COTDBAPI, OWMAPI } = require('./datasources');
 
-const ALLOWED_FRONTEND_SERVICE_ACCOUNT = process.env.FRONTEND_SERVICE_ACCOUNT_EMAIL || 'your-frontend-app-service-account@your-gcp-project-id.iam.gserviceaccount.com';
-
-function authenticateAppEngineService(req, res, next) {
-    const callingServiceAccount = req.headers['x-appengine-service-account'];
-    console.log(`Received request from service account: ${callingServiceAccount}`);
-
-    if (callingServiceAccount === ALLOWED_FRONTEND_SERVICE_ACCOUNT && req.header.origin.endsWith('.aqueous-cargo-415820.uc.r.appspot.com')) {
-        console.log('Access granted to frontend service account.');
-        next(); // Allow the request
-    } else {
-        console.warn(`Unauthorized access attempt from service account: ${callingServiceAccount || 'None'}`);
-        res.status(403).send('Forbidden: Access denied.');
-    }
-}
-
-
 async function startApolloServer(typeDefs, resolvers) {
     const app = express();
     const httpServer = http.createServer(app);
@@ -65,7 +49,7 @@ async function startApolloServer(typeDefs, resolvers) {
 
     app.use(cors(corsOptions));
 
-    app.use('/', authenticateAppEngineService, express.json(), server.getMiddleware({
+    app.use('/', express.json(), server.getMiddleware({
         path: '/',
     }));
 
