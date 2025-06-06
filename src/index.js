@@ -59,8 +59,6 @@ async function startApolloServer(typeDefs, resolvers) {
 
     const PORT = process.env.PORT || 5000;
     await new Promise(resolve => httpServer.listen({ port: PORT }, resolve));
-    console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
-    console.log(`To access, ensure X-Appengine-Service-Account is set to: ${ALLOWED_FRONTEND_SERVICE_ACCOUNT}`);
 }
 
 startApolloServer(typeDefs, resolvers);
