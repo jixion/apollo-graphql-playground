@@ -12,7 +12,7 @@ const { NASAAPI, ISSAPI, COTDBAPI, OWMAPI } = require('./datasources');
 
 function authenticateAppEngineService(req, res, next) {
     console.log(req.headers);
-    if (req.header["Origin"].endsWith('.aqueous-cargo-415820.uc.r.appspot.com')) {
+    if (req.header["host"].endsWith('.aqueous-cargo-415820.uc.r.appspot.com')) {
         next(); // Allow the request
     } else {
         res.status(403).send('Forbidden: Access denied.');
