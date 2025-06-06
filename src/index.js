@@ -55,12 +55,12 @@ async function startApolloServer(typeDefs, resolvers) {
 
     // Apply the authentication middleware before the Apollo Server middleware
     // This assumes your GraphQL endpoint is at '/graphql'. Adjust if different.
-    app.use('/graphql', authenticateAppEngineService, express.json(), server.getMiddleware({
-        path: '/graphql',
+    app.use('/', authenticateAppEngineService, express.json(), server.getMiddleware({
+        path: '/',
     }));
 
     // For health checks or other simple endpoints that don't need GraphQL access
-    app.get('/', (req, res) => {
+    app.get('/health', (req, res) => {
         res.status(200).send('GraphQL server is running.');
     });
 
