@@ -17,6 +17,7 @@
     "apollo-datasource-rest": "^3.7.0",
     "apollo-server": "3.13.0",
     "apollo-server-core": "^3.13.0",
+    "cors": "^2.8.5",
     "graphql": "^16.11.0"
   }
 }

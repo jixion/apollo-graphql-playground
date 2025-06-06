@@ -1,23 +1,17 @@
-const express = require('express'); // <-- Add express
-const { ApolloServer } = require('apollo-server-express'); // <-- Change to apollo-server-express
+const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
 const {
     ApolloServerPluginDrainHttpServer
-} = require('apollo-server-core'); // For graceful shutdown
-const http = require('http'); // For http server
+} = require('apollo-server-core');
+const http = require('http');
+const cors = require('cors');
 
 const { typeDefs } = require('./typedefs');
 const { resolvers } = require('./resolvers');
 const { NASAAPI, ISSAPI, COTDBAPI, OWMAPI } = require('./datasources');
 
-// --- START Recommended Backend Code Modification ---
-
-// Get the service account of your frontend App Engine app
-// IMPORTANT: Replace 'your-frontend-app-service-account@your-gcp-project-id.iam.gserviceaccount.com'
-// with the actual service account email of your frontend App Engine application.
-// You can make this an environment variable for better management.
 const ALLOWED_FRONTEND_SERVICE_ACCOUNT = process.env.FRONTEND_SERVICE_ACCOUNT_EMAIL || 'your-frontend-app-service-account@your-gcp-project-id.iam.gserviceaccount.com';
 
-// Middleware to check the X-Appengine-Service-Account header
 function authenticateAppEngineService(req, res, next) {
     const callingServiceAccount = req.headers['x-appengine-service-account'];
     console.log(`Received request from service account: ${callingServiceAccount}`);
@@ -31,7 +25,6 @@ function authenticateAppEngineService(req, res, next) {
     }
 }
 
-// --- END Recommended Backend Code Modification ---
 
 async function startApolloServer(typeDefs, resolvers) {
     const app = express();
@@ -46,20 +39,36 @@ async function startApolloServer(typeDefs, resolvers) {
             cotdbAPI: new COTDBAPI(),
             owmAPI: new OWMAPI()
         }),
-        // Ensure playground is disabled in production
-        playground: process.env.NODE_ENV !== 'production', // Keep playground for development, disable in production
+        playground: process.env.NODE_ENV !== 'production',
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
 
     await server.start();
 
-    // Apply the authentication middleware before the Apollo Server middleware
-    // This assumes your GraphQL endpoint is at '/graphql'. Adjust if different.
+    const allowedOrigins = [
+        'https://v2-dot-aqueous-cargo-415820.uc.r.appspot.com', // Your frontend App Engine URL
+    ];
+
+    const corsOptions = {
+        origin: function (origin, callback) {
+            // Check if the origin is in our allowed list or if it's a request from the same origin (e.g., Postman, Curl, or direct access)
+            if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com')) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        credentials: true, // If your frontend sends cookies or authorization headers
+        methods: ['GET', 'POST', 'OPTIONS'], // Allow these HTTP methods
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Appengine-Service-Account'], // Allow these headers from the client
+    };
+
+    app.use(cors(corsOptions));
+
     app.use('/', authenticateAppEngineService, express.json(), server.getMiddleware({
         path: '/',
     }));
 
-    // For health checks or other simple endpoints that don't need GraphQL access
     app.get('/health', (req, res) => {
         res.status(200).send('GraphQL server is running.');
     });
