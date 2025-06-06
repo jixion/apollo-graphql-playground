@@ -11,7 +11,8 @@ const { resolvers } = require('./resolvers');
 const { NASAAPI, ISSAPI, COTDBAPI, OWMAPI } = require('./datasources');
 
 function authenticateAppEngineService(req, res, next) {
-    console.log(req.headers);
+    console.log(req.headers.host);
+    console.log(req.header["host"]);
     if (req.header["host"].endsWith('.aqueous-cargo-415820.uc.r.appspot.com')) {
         next(); // Allow the request
     } else {
