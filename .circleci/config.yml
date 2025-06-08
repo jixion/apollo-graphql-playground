@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run:
             name: Deploy app
-            command: ssh -oStrictHostKeyChecking=no -v circleci@jixion.com "sudo ./screen-wrapper-graphql.sh ${NASA} ${OWM}"
+            command: ssh -oStrictHostKeyChecking=no -v circleci@sparkimaginations.com "sudo ./screen-wrapper-graphql.sh ${NASA} ${OWM}"
 
 # Orchestrate our job run sequence
 workflows:
