@@ -4,3 +4,5 @@ node_modules/
 *.cjs
 *.mjs
 .yarn/install-state.gz
+.env
+.env*
