@@ -39,7 +39,8 @@ async function startApolloServer(typeDefs, resolvers) {
 
     const allowedOrigins = [
         'https://v2-dot-aqueous-cargo-415820.uc.r.appspot.com',
-        'https://www.jixion.com'
+        'https://www.jixion.com',
+        'http://localhost:3001',
     ];
 
     const corsOptions = {
