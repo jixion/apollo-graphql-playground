@@ -45,15 +45,21 @@ async function startApolloServer(typeDefs, resolvers) {
 
     const corsOptions = {
         origin: function (origin, callback) {
-            if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com') || origin.endsWith('jixion.com')) {
+            if (
+                !origin ||
+                allowedOrigins.indexOf(origin) !== -1 ||
+                origin.endsWith('aqueous-cargo-415820.uc.r.appspot.com') ||
+                origin.endsWith('jixion.com') ||
+                origin.endsWith('localhost:3001')
+            ) {
                 callback(null, true);
             } else {
                 callback(new Error('Not allowed by CORS'));
             }
         },
-        credentials: true, // If your frontend sends cookies or authorization headers
-        methods: ['GET', 'POST', 'OPTIONS'], // Allow these HTTP methods
-        allowedHeaders: ['Content-Type', 'Authorization', 'X-Appengine-Service-Account'], // Allow these headers from the client
+        credentials: true,
+        methods: ['GET', 'POST', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Appengine-Service-Account'],
     };
 
     app.use(cors(corsOptions));
